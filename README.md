@@ -1,2 +1,51 @@
 # p1-pairProject-EduPay-Iya
 Untuk menyelesaikan phase 1 Pair Project EduPay-Iya
+
+Deskripsi
+
+EduPay-Iya adalah aplikasi berbasis web yang dikembangkan menggunakan Express.js, EJS, PostgreSQL, Sequelize ORM, dan pola arsitektur MVC (Model-View-Controller). Aplikasi ini bertujuan untuk mengelola pengguna dalam sistem edukasi dengan fitur-fitur yang lengkap, termasuk registrasi, login, dan tampilan data yang dapat menggabungkan beberapa tabel menggunakan eager loading dari Sequelize.
+
+Aplikasi ini mengimplementasikan berbagai fitur terkait dengan pengelolaan data pengguna, termasuk validasi, autentikasi, asosiasi antar entitas, dan pengelolaan session. EduPay-Iya juga dilengkapi dengan fitur pencarian dan pengurutan data menggunakan Sequelize.
+Teknologi yang Digunakan
+
+    Node.js (Express)
+    EJS (Template Engine)
+    PostgreSQL (Database)
+    Sequelize (ORM)
+    Bcryptjs (Enkripsi Password)
+    Session Middleware (untuk manajemen session pengguna)
+    Sequelize Validation (Validasi data)
+    Sequelize Hooks (Event-driven programming dalam CRUD)
+    MVC (Arsitektur Model-View-Controller)
+
+Fitur
+
+    CRUD Pengguna
+    Pengguna dapat melakukan operasi Create, Read, Update, dan Delete terhadap data pengguna.
+
+    Autentikasi Pengguna
+    Pengguna dapat mendaftar dan masuk ke aplikasi dengan menggunakan email dan password yang terenkripsi dengan bcryptjs.
+
+    Search & Sort
+    Pengguna dapat melakukan pencarian dan pengurutan data menggunakan Sequelize dan operatornya.
+
+    Asosiasi Data
+    Aplikasi ini mengimplementasikan tiga jenis asosiasi relasional:
+        One-to-One
+        One-to-Many
+        Many-to-Many
+
+    Eager Loading
+    Data gabungan dari dua atau lebih tabel ditampilkan dengan menggunakan eager loading dari Sequelize.
+
+    Validasi Data
+    Validasi pada model menggunakan berbagai jenis validasi seperti notNull, notEmpty, dan validasi lainnya.
+
+    Hooks
+    Digunakan untuk menangani proses otomatis pada event tertentu (misalnya sebelum/ sesudah create, update, atau delete).
+
+    Middleware dan Session
+    Pengelolaan session dan autentikasi pengguna menggunakan middleware dan session.
+
+    Penggunaan Helper
+    Terdapat helper untuk operasi tertentu yang digunakan dalam beberapa bagian aplikasi.
