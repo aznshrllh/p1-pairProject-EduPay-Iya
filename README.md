@@ -20,32 +20,35 @@ Teknologi yang Digunakan
 
 Fitur
 
-    CRUD Pengguna
+    1. CRUD Pengguna
     Pengguna dapat melakukan operasi Create, Read, Update, dan Delete terhadap data pengguna.
 
-    Autentikasi Pengguna
+    2. Autentikasi Pengguna
     Pengguna dapat mendaftar dan masuk ke aplikasi dengan menggunakan email dan password yang terenkripsi dengan bcryptjs.
 
-    Search & Sort
+    3. Search & Sort
     Pengguna dapat melakukan pencarian dan pengurutan data menggunakan Sequelize dan operatornya.
 
-    Asosiasi Data
+    4. Asosiasi Data
     Aplikasi ini mengimplementasikan tiga jenis asosiasi relasional:
         One-to-One
         One-to-Many
         Many-to-Many
 
-    Eager Loading
+    5. Eager Loading
     Data gabungan dari dua atau lebih tabel ditampilkan dengan menggunakan eager loading dari Sequelize.
 
-    Validasi Data
+    6. Validasi Data
     Validasi pada model menggunakan berbagai jenis validasi seperti notNull, notEmpty, dan validasi lainnya.
 
-    Hooks
+    7. Hooks
     Digunakan untuk menangani proses otomatis pada event tertentu (misalnya sebelum/ sesudah create, update, atau delete).
 
-    Middleware dan Session
+    8. Middleware dan Session
     Pengelolaan session dan autentikasi pengguna menggunakan middleware dan session.
 
-    Penggunaan Helper
+    9. Penggunaan Helper
     Terdapat helper untuk operasi tertentu yang digunakan dalam beberapa bagian aplikasi.
+
+    10. Fitur Filter
+    Digunakan untuk memfilter Course apa saja yang sudah sesuai dengan yang diinginkan User untuk belajar
