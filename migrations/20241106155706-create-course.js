@@ -19,7 +19,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       videoUrl: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,

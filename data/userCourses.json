@@ -1,0 +1,12 @@
+[
+    {
+        "UserId": 2,
+        "CourseId": 1,
+        "statusLearning": false
+    },
+    {
+        "UserId": 2,
+        "CourseId": 2,
+        "statusLearning": true
+    }
+]
