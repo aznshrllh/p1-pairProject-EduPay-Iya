@@ -10,16 +10,16 @@ exports.home = async (req, res) => {
   }
 };
 
-exports.courses = async (req, res) => {    
-    try {
-        const courses = await Course.findAll()
-        console.log('courses', courses)
-        res.render('courses', { courses })
-    } catch (error) {
-        console.log(error)
-        res.send(error.message)
-    }
-}
+exports.courses = async (req, res) => {
+  try {
+    const courses = await Course.findAll();
+    console.log("courses", courses);
+    res.render("courses", { courses });
+  } catch (error) {
+    console.log(error);
+    res.send(error.message);
+  }
+};
 exports.register = async (req, res) => {
   if (req.method === "POST") {
     const { email, password, confirmPassword, name, age, gender, role } =
@@ -94,7 +94,7 @@ exports.login = async (req, res) => {
       req.session.role = user.role;
 
       // console.log("Session UserId:", req.session.userId);
-      res.redirect(`/dashBoard/${user.id}`);
+      res.redirect(`/home`);
     } else {
       res.render("home", { message: "Invalid email or password." });
     }
