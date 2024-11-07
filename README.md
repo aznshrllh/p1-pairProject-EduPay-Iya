@@ -1,6 +1,10 @@
 # p1-pairProject-EduPay-Iya
 Untuk menyelesaikan phase 1 Pair Project EduPay-Iya
 
+npm yang perlu diinstall
+    npm install express ejs pg sequelize bcryptjs express-session moment 
+    npm install --save-dev sequelize-cli
+
 Deskripsi
 
 EduPay-Iya adalah aplikasi berbasis web yang dikembangkan menggunakan Express.js, EJS, PostgreSQL, Sequelize ORM, dan pola arsitektur MVC (Model-View-Controller). Aplikasi ini bertujuan untuk mengelola pengguna dalam sistem edukasi dengan fitur-fitur yang lengkap, termasuk registrasi, login, dan tampilan data yang dapat menggabungkan beberapa tabel menggunakan eager loading dari Sequelize.
@@ -27,7 +31,7 @@ Fitur
     Pengguna dapat mendaftar dan masuk ke aplikasi dengan menggunakan email dan password yang terenkripsi dengan bcryptjs.
 
     3. Search & Sort
-    Pengguna dapat melakukan pencarian dan pengurutan data menggunakan Sequelize dan operatornya.
+    Pengguna dapat melakukan pencarian dan pengurutan data secara langsung (ascending) menggunakan Sequelize dan operatornya.
 
     4. Asosiasi Data
     Aplikasi ini mengimplementasikan tiga jenis asosiasi relasional:
