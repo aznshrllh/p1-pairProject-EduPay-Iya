@@ -21,9 +21,9 @@
         tabindex="0"
         class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
       >
-        <li><a>Courses</a></li>
-        <li><a>My Courses</a></li>
-        <li><a>Add Course</a></li>
+        <li><a href="/dashBoard/<%= userId %>/course/all">Courses</a></li>
+        <li><a href="/dashBoard/<%= userId %>/course">My Courses</a></li>
+        <li><a href="/dashBoard/<%= userId %>/course/add">Add Course</a></li>
       </ul>
     </div>
   </div>
@@ -108,9 +108,9 @@
         class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
       >
         <li>
-          <a class="justify-between"> Profile </a>
+          <a class="justify-between" href="/dashBoard/<%= userId %>"> Profile </a>
         </li>
-        <li><a>Logout</a></li>
+        <li><a href="/logout">Logout</a></li>
       </ul>
     </div>
   </div>
