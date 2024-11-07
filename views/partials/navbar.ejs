@@ -6,6 +6,7 @@
   <% } %> <% if (userId) { %>
   <!-- Jika user sudah login -->
   <button onclick="location.href='/dashBoard/<%= userId %>'">Dashboard</button>
+  <button onclick="location.href='/dashBoard/courses'">Courses List</button>
   <button onclick="location.href='/logout'">Logout</button>
 
   <% if (role === 'teacher') { %>
