@@ -22,5 +22,26 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "Course",
     }
   );
+  Course.beforeValidate((course, options) => {
+    if (!course.name || course.name.trim() === "") {
+      throw new Error("Course name is required");
+    }
+
+    if (!course.description || course.description.trim() === "") {
+      throw new Error("Course description is required");
+    }
+
+    if (course.duration == null || course.duration <= 0) {
+      throw new Error("Course duration must be a positive number");
+    }
+
+    if (!course.videoUrl) {
+      throw new Error("Valid video URL is required");
+    }
+
+    if (!course.author || course.author.trim() === "") {
+      throw new Error("Course author is required");
+    }
+  });
   return Course;
 };
