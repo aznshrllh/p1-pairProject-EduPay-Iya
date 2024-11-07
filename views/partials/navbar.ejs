@@ -1,0 +1,23 @@
+<nav>
+  <button onclick="location.href='/home'">Home</button>
+
+  <% if (userId) { %>
+  <!-- Jika user sudah login -->
+  <button onclick="location.href='/dashBoard/<%= userId %>'">Dashboard</button>
+  <button onclick="location.href='/logout'">Logout</button>
+  <!-- 
+    <li><a href="/dashBoard/<%= userId %>">Dashboard</a></li>
+    <li><a href="/logout">Logout</a></li> -->
+
+  <% if (role === 'teacher') { %>
+  <!-- Jika user adalah teacher -->
+  <button onclick="location.href='/dashBoard/<%= userId %>/course/add'">
+    Add Course
+  </button>
+  <!-- <li><a href="/dashBoard/<%= userId %>/course/add">Add Course</a></li> -->
+  <% } %> <% } else { %>
+  <!-- Jika user belum login -->
+  <button onclick="location.href='/register'">Register</button>
+  <!-- <li><a href="/register">Register</a></li> -->
+  <% } %>
+</nav>

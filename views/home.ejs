@@ -1,11 +1,24 @@
+<!-- views/home.ejs -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
+    <title>EduPay-Iya Home</title>
   </head>
   <body>
-    Ini halaman Home
+    <%- include('partials/navbar', { userId: null, role: '' }) %>
+
+    <h1>Welcome to EduPay-Iya</h1>
+
+    <h2>Login</h2>
+    <form action="/login" method="POST">
+      <label>Email:</label>
+      <input type="email" name="email" required />
+      <br />
+      <label>Password:</label>
+      <input type="password" name="password" required />
+      <br />
+      <button type="submit">Login</button>
+    </form>
   </body>
 </html>
