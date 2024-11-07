@@ -11,6 +11,10 @@ const {
   dashboard,
   addCourse,
   addCoursePage,
+  editCoursePage,
+  deleteCourse,
+  editCourse,
+  manageCoursesPage,
 } = require("../controllers");
 const { isAuthenticated, isTeacher } = require("../middlewares/authMiddleware");
 const router = require("express").Router();
@@ -32,9 +36,6 @@ router.post("/register", register); // untuk mengambil data dari register
 router.get("/dashBoard/:userId/course/all", courses);
 router.get("/dashBoard/:userId", isAuthenticated, dashboard); // untuk menampilkan dashBoard, menampilkan dashboard dengan nama, profile, dan tombol course yang nanti mengarah ke /course/add
 router.get("/dashBoard/:userId/course", myCourse); // untuk mengakses course yang sudah dipilih atau mematikan (semacam fitur on dan off boolean)
-router.get("/dashBoard/:userId/course/:courseId/detail", detailCourse); 
-router.get("/dashBoard/:userId/course/:courseId/learn", learnCourse); 
-router.get("/dashBoard/:userId/course/:courseId/finish", finishCourse); 
 
 // ! hanya bisa diakses oleh teacher
 router.get(
@@ -43,15 +44,47 @@ router.get(
   isTeacher,
   addCoursePage
 ); // untuk mengakses course yang ingin ditambahkan
+
 router.post(
   "/dashBoard/:userId/course/add",
   isAuthenticated,
   isTeacher,
   addCourse
 ); // untuk mengirim pilihan course yang sudah ditambahkan
-router.get("/dashBoard/:userId/course/:courseId/edit"); // untuk mengakses
-router.post("/dashBoard/:userId/course/:courseId/edit"); // untuk mengakses
-router.get("/dashBoard/:userId/course/:courseId/delete"); // untuk mengakses
+
+router.get(
+  "/dashBoard/:userId/course/:courseId/edit",
+  isAuthenticated,
+  isTeacher,
+  editCoursePage
+); // untuk mengakses
+
+router.post(
+  "/dashBoard/:userId/course/:courseId/edit",
+  isAuthenticated,
+  isTeacher,
+  editCourse
+); // untuk mengakses
+
+router.get(
+  "/dashBoard/:userId/course/:courseId/delete",
+  isAuthenticated,
+  isTeacher,
+  deleteCourse
+); // untuk mengakses
+
+router.get("/dashBoard/:userId/course/:courseId/detail", detailCourse); 
+router.get("/dashBoard/:userId/course/:courseId/learn", learnCourse); 
+router.get("/dashBoard/:userId/course/:courseId/finish", finishCourse); 
+
+router.get(
+  "/dashBoard/:userId/manageCourses",
+  isAuthenticated,
+  isTeacher,
+  manageCoursesPage
+);
+
+
 
 router.post("/login", login);
 router.get("/logout", logout);

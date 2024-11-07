@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       })
       User.belongsToMany(models.Course, {
         through: models.UserCourse,
+        foreignKey: "UserId",
       });
     }
   }

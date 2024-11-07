@@ -22,7 +22,11 @@
     <p>Age: <%= age %></p>
 
     <h2>Your Courses</h2>
-    <% if (courses.length > 0) { %>
+    <% if (role === 'teacher') { %>
+    <button onclick="location.href='/dashBoard/<%= userId %>/manageCourses'">
+      Manage Courses
+    </button>
+    <% } %> <% if (courses.length > 0) { %>
     <ul>
       <% courses.forEach(course => { %>
       <li>
