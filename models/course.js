@@ -1,29 +1,25 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Course extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
       Course.belongsToMany(models.User, {
-        through: models.UserCourse
-      })
+        through: models.UserCourse,
+      });
     }
   }
-  Course.init({
-    name: DataTypes.STRING,
-    description: DataTypes.STRING,
-    duration: DataTypes.INTEGER,
-    videoUrl: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Course',
-  });
+  Course.init(
+    {
+      name: DataTypes.STRING,
+      description: DataTypes.TEXT, // Update tipe data untuk description
+      duration: DataTypes.INTEGER,
+      videoUrl: DataTypes.STRING,
+      author: DataTypes.STRING, // Ditambahkan dari migrasi 6
+    },
+    {
+      sequelize,
+      modelName: "Course",
+    }
+  );
   return Course;
 };

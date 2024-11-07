@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard - EduPay-Iya</title>
+  </head>
+  <body>
+    <%- include('partials/navbar', { userId: userId, role: role }) %>
+    <!-- Navbar yang dinamis -->
+
+    <h1>Welcome, <%= name %>!</h1>
+    <p>Role: <%= role %></p>
+    <p>Age: <%= age %></p>
+
+    <h2>Your Courses</h2>
+    <% if (courses.length > 0) { %>
+    <ul>
+      <% courses.forEach(course => { %>
+      <li>
+        <%= course.name %> -
+        <button
+          onclick="location.href='/dashBoard/<%= userId %>/course/<%= course.id %>'"
+        >
+          View Course
+        </button>
+        <!-- <a href="/dashBoard/<%= userId %>/course/<%= course.id %>"
+          >View Course</a
+        > -->
+        <% if (role === 'teacher') { %>
+        <!-- Jika user adalah teacher -->
+        <button
+          onclick="location.href='/dashBoard/<%= userId %>/course/<%= course.id %>/edit'"
+        >
+          Edit
+        </button>
+        <button
+          onclick="location.href='/dashBoard/<%= userId %>/course/<%= course.id %>/delete'"
+        >
+          Delete
+        </button>
+        <!-- <a href="/dashBoard/<%= userId %>/course/<%= course.id %>/edit">Edit</a>
+        <a href="/dashBoard/<%= userId %>/course/<%= course.id %>/delete"
+          >Delete</a
+        > -->
+        <% } %>
+      </li>
+      <% }) %>
+    </ul>
+    <% } else { %>
+    <p>You have no courses yet.</p>
+    <% } %>
+  </body>
+</html>
