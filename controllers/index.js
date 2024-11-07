@@ -82,6 +82,8 @@ exports.login = async (req, res) => {
       // Jika password cocok, set session user
       req.session.userId = user.id;
       req.session.role = user.role;
+
+      // console.log("Session UserId:", req.session.userId);
       res.redirect(`/dashBoard/${user.id}`);
     } else {
       res.render("home", { message: "Invalid email or password." });
