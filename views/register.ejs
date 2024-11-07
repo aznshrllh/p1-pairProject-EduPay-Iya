@@ -1,49 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="cupcake">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Lexend:wght@100..900&family=Sixtyfour+Convergence&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="/css/main.css" />
   </head>
   <body>
-    <h2>Register</h2>
-    <form action="/register" method="POST">
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required /><br />
-
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required /><br />
-
-      <label for="confirmPassword">Confirm Password:</label>
-      <input
-        type="password"
-        id="confirmPassword"
-        name="confirmPassword"
-        required
-      /><br />
-
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required /><br />
-
-      <label for="age">Age:</label>
-      <input type="number" id="age" name="age" required /><br />
-
-      <label for="gender">Gender:</label>
-      <select id="gender" name="gender" required>
-        <option value="male">Male</option>
-        <option value="female">Female</option></select
-      ><br />
-
-      <label for="role">Role:</label>
-      <select id="role" name="role" required>
-        <option value="student">Student</option>
-        <option value="teacher">Teacher</option></select
-      ><br />
-
-      <button type="submit">Register</button>
-    </form>
-    <br />
-    <span>Already have an account?</span>
-    <button onclick="location.href='/home'">Login Here</button>
+    <div class="hero bg-base-200 min-h-screen">
+      <div class="hero-content flex-col lg:flex-row-reverse">
+        <div class="card bg-base-100 w-full shrink-0 shadow-2xl">
+          <form class="card-body" action="/register" method="POST">
+            <div class="grid grid-cols-2 gap-6">
+              <div>
+                <div class="form-control">
+                  <label class="label">
+                    <span class="label-text">Email</span>
+                  </label>
+                  <input name="email" type="email" placeholder="email" class="input input-bordered" required />
+                </div>
+                <div class="form-control">
+                  <label class="label">
+                    <span class="label-text">Password</span>
+                  </label>
+                  <input name="password" type="password" placeholder="password" class="input input-bordered" required />
+                </div>
+                <div class="form-control">
+                  <label class="label">
+                    <span class="label-text">Confirm Password</span>
+                  </label>
+                  <input name="confirmPassword" type="password" placeholder="confirmPassword" class="input input-bordered" required />
+                </div>
+                <div class="form-control">
+                  <label class="label">
+                    <span class="label-text">Name</span>
+                  </label>
+                  <input name="name" type="text" placeholder="name" class="input input-bordered" required />
+                </div>
+              </div>
+              <div>
+                <div class="form-control">
+                  <label class="label">
+                    <span class="label-text">Age</span>
+                  </label>
+                  <input name="age" type="number" placeholder="age" class="input input-bordered" required />
+                </div>
+                <div class="form-control">
+                  <label class="label">
+                    <span class="label-text">Gender</span>
+                  </label>
+                  <select id="gender" name="gender" class="select select-bordered w-full max-w-xs">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
+                </div>
+                <div class="form-control">
+                  <label class="label">
+                    <span class="label-text">Role</span>
+                  </label>
+                  <select id="role" name="role" class="select select-bordered w-full max-w-xs">
+                    <option value="student">Student</option>
+                    <option value="teacher">Teacher</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="form-control mt-6">
+              <button class="btn btn-primary" type="submit">Register</button>
+            </div>
+            <div class="flex gap-1">
+              Already have an account? <a class="link link-accent" href="/home">Login Here</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

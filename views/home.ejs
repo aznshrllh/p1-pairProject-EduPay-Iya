@@ -1,24 +1,52 @@
 <!-- views/home.ejs -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="cupcake">
   <head>
     <meta charset="UTF-8" />
     <title>EduPay-Iya Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Lexend:wght@100..900&family=Sixtyfour+Convergence&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="/css/main.css" />
   </head>
   <body>
-    <%- include('partials/navbar', { userId: null, role: '' }) %>
-
-    <h1>Welcome to EduPay-Iya</h1>
-
-    <h2>Login</h2>
-    <form action="/login" method="POST">
-      <label>Email:</label>
-      <input type="email" name="email" required />
-      <br />
-      <label>Password:</label>
-      <input type="password" name="password" required />
-      <br />
-      <button type="submit">Login</button>
-    </form>
+    <div class="hero bg-base-200 min-h-screen">
+      <div class="hero-content flex-col lg:flex-row-reverse">
+        <div class="text-center lg:text-left">
+          <h1 class="text-5xl font-bold">Welcome to EduPay-Iya!</h1>
+          <p class="py-6">
+            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
+            quasi. In deleniti eaque aut repudiandae et a id nisi.
+          </p>
+        </div>
+        <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+          <form class="card-body" action="/login" method="POST">
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">Email</span>
+              </label>
+              <input name="email" type="email" placeholder="email" class="input input-bordered" required />
+            </div>
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">Password</span>
+              </label>
+              <input name="password" type="password" placeholder="password" class="input input-bordered" required />
+            </div>
+            <div class="form-control mt-6">
+              <button class="btn btn-primary" type="submit">Login</button>
+            </div>
+            <p class="text-center">or</p>
+            <div class="form-control">
+              <button onclick="location.href='/register'" class="btn btn-primary">Register</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

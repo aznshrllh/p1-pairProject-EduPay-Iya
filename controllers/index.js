@@ -1,6 +1,7 @@
 const { formatDateRelative } = require("../helpers/formatDate");
 const { formatDurationToHours } = require("../helpers/formatDuration");
 const { Course, ProfileUser, User, UserCourse } = require("../models");
+const { Op } = require("sequelize")
 const bcrypt = require("bcryptjs");
 
 exports.home = async (req, res) => {
@@ -14,16 +15,36 @@ exports.home = async (req, res) => {
 
 exports.courses = async (req, res) => {
   const { userId } = req.params;
+  const { keyword } = req.query;
+
+  const options = {
+      where: {},
+  };
+
+  if (keyword) {
+    options.where.name = {
+      [Op.iLike]: `%${keyword}%`,
+    };
+  }
 
   try {
-    const courses = await Course.findAll();
+    const courses = await Course.findAll(options);
 
     courses.forEach((course) => {
       course.durationFormatted = formatDurationToHours(course.duration); // Menambahkan field baru dengan duration yang sudah diformat
     });
 
     const user = await User.findByPk(userId, {
-      include: UserCourse,
+      include: [UserCourse, ProfileUser],
+    });
+
+    if (!courses || courses.length === 0) {
+      console.log("No courses found");
+    }
+
+    courses.forEach((course) => {
+      course.duration = formatDurationToHours(course.duration);
+      course.uploadedAt = formatDateRelative(course.createdAt);
     });
 
     res.render("courses", { courses, userId, user });
@@ -81,7 +102,7 @@ exports.learnCourse = async (req, res) => {
     });
 
     // Redirect kembali ke halaman dashboard user
-    res.redirect(`/dashBoard/${userId}/course`);
+    res.redirect(`/dashBoard/${userId}/course/all`);
   } catch (error) {
     console.error(error);
     res.status(500).send("Error while adding course.");
@@ -261,7 +282,7 @@ exports.dashboard = async (req, res) => {
 };
 
 exports.deleteCourse = async (req, res) => {
-  const { courseId } = req.params;
+  const { courseId, userId } = req.params;
 
   try {
     const course = await Course.findByPk(courseId);
@@ -270,7 +291,7 @@ exports.deleteCourse = async (req, res) => {
     }
 
     await course.destroy();
-    res.redirect("/dashBoard/:userId/manageCourses");
+    res.redirect(`/dashBoard/${userId}/course/all`);
   } catch (error) {
     console.error(error);
     res.status(500).send("Error deleting course");
@@ -311,7 +332,7 @@ exports.editCourse = async (req, res) => {
       author,
     });
 
-    res.redirect(`/dashBoard/${req.params.userId}/manageCourses`);
+    res.redirect(`/dashBoard/${req.params.userId}/course/all`);
   } catch (error) {
     console.error(error);
     res.status(500).send("Error updating course");

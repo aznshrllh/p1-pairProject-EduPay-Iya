@@ -1,12 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="cupcake">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edit Course</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Lexend:wght@100..900&family=Sixtyfour+Convergence&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="/css/main.css" />
   </head>
   <body>
-    <h1>Edit Course</h1>
+    <%- include('partials/navbar2') %>
+
+    <div class="overflow-x-auto px-20 flex flex-col items-center">
+    <p class="text-xl"><b>Edit Course</b></p>
+    <br>
 
     <!-- Form untuk mengedit course -->
     <form
@@ -20,13 +32,19 @@
         name="name"
         value="<%= course.name %>"
         required
+        class="input input-bordered input-sm w-full max-w-xs"
       />
       <br /><br />
 
       <label for="description">Description:</label>
-      <textarea id="description" name="description" required>
-<%= course.description %></textarea
+      <textarea 
+        id="description" 
+        name="description" 
+        required 
+        class="textarea textarea-bordered textarea-md w-full max-w-xs"
       >
+        <%= course.description %>
+      </textarea>
       <br /><br />
 
       <label for="duration">Duration (hours):</label>
@@ -36,6 +54,7 @@
         name="duration"
         value="<%= course.duration %>"
         required
+        class="input input-bordered input-sm w-full max-w-xs"
       />
       <br /><br />
 
@@ -46,6 +65,7 @@
         name="videoUrl"
         value="<%= course.videoUrl %>"
         required
+        class="input input-bordered input-sm w-full max-w-xs"
       />
       <br /><br />
 
@@ -56,13 +76,16 @@
         name="author"
         value="<%= course.author %>"
         required
+        class="input input-bordered input-sm w-full max-w-xs"
       />
       <br /><br />
 
-      <button type="submit">Save Changes</button>
+      <div class="text-center mb-6">
+        <button type="submit" class="btn btn-accent btn-sm">Save Changes</button>
+      </div>
     </form>
 
-    <br />
-    <a href="/manageCourses">Back to Manage Courses</a>
+    </div>
+
   </body>
 </html>

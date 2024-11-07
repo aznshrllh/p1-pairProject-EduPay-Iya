@@ -11,6 +11,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "CourseId"
       })
     }
+
+    get byAuthor() {
+      let addBy = `by ${this.author}`
+      return addBy
+    }
   }
   Course.init(
     {
