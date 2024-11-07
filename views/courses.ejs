@@ -17,10 +17,8 @@
 <body>
     <%- include('partials/navbar2') %>
 
-    
-
     <div class="overflow-x-auto px-20 flex flex-col items-center">
-        <h1><b>List Courses</b></h1>
+        <h1><b>List All Courses</b></h1>
         
         <br>
 
@@ -42,7 +40,15 @@
                         <th><%= el.name %></th>
                         <th><%= el.author %></th>
                         <th><%= el.duration %></th>
-                        <th><button class="btn btn-active btn-neutral btn-xs">Learn</button></th>
+                        <th class="flex gap-1">
+                            <form action="/dashBoard/<%= userId %>/course/<%= el.id %>/learn">
+                                <% if (user.UserCourses.find((element) => element.CourseId == el.id)) { %>
+                                    <button class="btn btn-disabled btn-neutral btn-xs" type="submit">Add to My Course</button>
+                                <% } else { %>
+                                    <button class="btn btn-active btn-neutral btn-xs" type="submit">Add to My Course</button>
+                                <% } %>
+                            </form>
+                        </th>
                     </tr>
                 <% }) %>
             </tbody>

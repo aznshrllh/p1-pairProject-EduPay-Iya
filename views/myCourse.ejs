@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cupcake">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Courses</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Lexend:wght@100..900&family=Sixtyfour+Convergence&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css" />
+</head>
+
+<body>
+    <%- include('partials/navbar2') %>
+
+        <div class="overflow-x-auto px-20 flex flex-col items-center">
+            <h1><b>My Courses</b></h1>
+
+            <br>
+
+            <table class="table">
+                <!-- head -->
+                <thead>
+                    <tr>
+                        <th><b>No.</b></th>
+                        <th><b>Name</b></th>
+                        <th><b>Author</b></th>
+                        <th><b>Duration</b></th>
+                        <th><b>Action</b></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% courses.forEach((el, index)=> { %>
+                        <tr>
+                            <th>
+                                <%= index + 1 %>.
+                            </th>
+                            <th>
+                                <%= el.Course.name %>
+                            </th>
+                            <th>
+                                <%= el.Course.author %>
+                            </th>
+                            <th>
+                                <%= el.Course.duration %>
+                            </th>
+                            <th>
+                                    <a href="/dashBoard/<%= userId %>/course/<%= el.Course.id %>/detail">
+                                        <% if (!el.statusLearning) { %>
+                                            <button class="btn btn-active btn-neutral btn-xs text-white" type="submit">
+                                                Lets Learn!
+                                            </button>
+                                        <% } else { %>
+                                            <button class="btn btn-success btn-neutral btn-xs text-white" type="submit">
+                                                Let's learn it again
+                                            </button>
+                                        <% } %>
+                                    </a>
+                            </th>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+        </div>
+</body>
+
+</html>

@@ -6,6 +6,9 @@ module.exports = (sequelize, DataTypes) => {
       User.hasOne(models.ProfileUser, {
         foreignKey: "UserId",
       });
+      User.hasMany(models.UserCourse, {
+        foreignKey: "UserId"
+      })
       User.belongsToMany(models.Course, {
         through: models.UserCourse,
         foreignKey: "UserId",

@@ -1,6 +1,10 @@
 const {
   home,
   courses,
+  myCourse,
+  detailCourse,
+  learnCourse,
+  finishCourse,
   register,
   login,
   logout,
@@ -29,9 +33,9 @@ router.get("/register", register); // untuk melakukan register/addStudent
 router.post("/register", register); // untuk mengambil data dari register
 
 // ! bisa di akses secara umum (teacher & student)
-router.get("/dashBoard/courses", courses);
+router.get("/dashBoard/:userId/course/all", courses);
 router.get("/dashBoard/:userId", isAuthenticated, dashboard); // untuk menampilkan dashBoard, menampilkan dashboard dengan nama, profile, dan tombol course yang nanti mengarah ke /course/add
-router.get("/dashBoard/:userId/course"); // untuk mengakses course yang sudah dipilih atau mematikan (semacam fitur on dan off boolean)
+router.get("/dashBoard/:userId/course", myCourse); // untuk mengakses course yang sudah dipilih atau mematikan (semacam fitur on dan off boolean)
 
 // ! hanya bisa diakses oleh teacher
 router.get(
@@ -69,12 +73,18 @@ router.get(
   deleteCourse
 ); // untuk mengakses
 
+router.get("/dashBoard/:userId/course/:courseId/detail", detailCourse); 
+router.get("/dashBoard/:userId/course/:courseId/learn", learnCourse); 
+router.get("/dashBoard/:userId/course/:courseId/finish", finishCourse); 
+
 router.get(
   "/dashBoard/:userId/manageCourses",
   isAuthenticated,
   isTeacher,
   manageCoursesPage
 );
+
+
 
 router.post("/login", login);
 router.get("/logout", logout);

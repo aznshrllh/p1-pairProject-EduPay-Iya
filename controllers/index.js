@@ -1,6 +1,6 @@
 const { formatDateRelative } = require("../helpers/formatDate");
 const { formatDurationToHours } = require("../helpers/formatDuration");
-const { Course, ProfileUser, User, Usercourse } = require("../models");
+const { Course, ProfileUser, User, UserCourse } = require("../models");
 const bcrypt = require("bcryptjs");
 
 exports.home = async (req, res) => {
@@ -13,15 +13,102 @@ exports.home = async (req, res) => {
 };
 
 exports.courses = async (req, res) => {
+  const {userId} = req.params
+
   try {
     const courses = await Course.findAll();
-    // console.log("courses", courses);
-    res.render("courses", { courses });
+
+    const user = await User.findByPk(userId, {
+      include: UserCourse
+    })
+    
+    res.render("courses", { courses, userId, user });
   } catch (error) {
     console.log(error);
     res.send(error.message);
   }
 };
+
+exports.myCourse = async (req, res) => {
+  const {userId} = req.params
+
+  try {
+    const courses = await UserCourse.findAll({
+        include: [
+          {
+            model: User,
+            where: {
+              id: userId
+            }
+          },
+          {
+            model: Course
+          }
+        ]
+    });
+    res.render("myCourse", { courses, userId });
+  } catch (error) {
+    console.log(error);
+    res.send(error.message);
+  }
+};
+
+exports.detailCourse = async (req, res) => {
+  const {userId, courseId} = req.params
+
+  try {
+    const course = await Course.findByPk(courseId);
+    res.render("detailCourse", { course, userId });
+  } catch (error) {
+    console.log(error);
+    res.send(error.message);
+  }
+};
+
+
+exports.learnCourse = async (req, res) => {
+  const { userId, courseId } = req.params;
+
+  try {
+    // Simpan data course baru ke database
+    await UserCourse.create({
+      UserId: userId,
+      CourseId: courseId,
+      statusLearning: false
+    });
+
+    // Redirect kembali ke halaman dashboard user
+    res.redirect(`/dashBoard/${userId}/course`);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error while adding course.");
+  }
+};
+
+exports.finishCourse = async (req, res) => {
+  const { userId, courseId } = req.params;
+
+  try {
+    // Simpan data course baru ke database
+    await UserCourse.update(
+      {
+        statusLearning: true
+      },
+      {
+        where: {
+          CourseId: courseId
+        }
+      }
+    );
+
+    // Redirect kembali ke halaman dashboard user
+    res.redirect(`/dashBoard/${userId}/course`);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error while adding course.");
+  }
+};
+
 exports.register = async (req, res) => {
   if (req.method === "POST") {
     const { email, password, confirmPassword, name, age, gender, role } =
