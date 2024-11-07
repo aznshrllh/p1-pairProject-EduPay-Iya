@@ -1,4 +1,4 @@
-const { formatDateRelative } = require("../helpers/formatDate");
+// const { formatDateRelative } = require("../helpers/formatDate");
 const { formatDurationToHours } = require("../helpers/formatDuration");
 const { Course, ProfileUser, User, UserCourse } = require("../models");
 const { Op } = require("sequelize")
@@ -44,7 +44,7 @@ exports.courses = async (req, res) => {
 
     courses.forEach((course) => {
       course.duration = formatDurationToHours(course.duration);
-      course.uploadedAt = formatDateRelative(course.createdAt);
+      course.uploadedAt = Course.formatDateRelative(course.createdAt);
     });
 
     res.render("courses", { courses, userId, user });
@@ -71,7 +71,7 @@ exports.myCourse = async (req, res) => {
         },
       ],
     });
-    res.render("myCourse", { courses, userId });
+    res.render("myCourse", { courses, userId, formatDurationToHours });
   } catch (error) {
     console.log(error);
     res.send(error.message);
@@ -176,11 +176,12 @@ exports.register = async (req, res) => {
 
 exports.addCoursePage = (req, res) => {
   const userId = req.params.userId;
+  const {error} = req.query
 
   if (req.session.userId !== parseInt(userId)) {
     return res.redirect("/login");
   }
-  res.render("addCourse", { userId });
+  res.render("addCourse", { userId, error });
 };
 
 exports.addCourse = async (req, res) => {
@@ -188,9 +189,9 @@ exports.addCourse = async (req, res) => {
   const { name, description, duration, videoUrl, author } = req.body;
   // console.log(req.body);
   try {
-    if (!name || !description || !duration || !author) {
-      return res.status(400).send("All fields are required.");
-    }
+    // if (!name || !description || !duration || !author) {
+    //   return res.status(400).send("All fields are required.");
+    // }
 
     const newCourse = await Course.create({
       name,
@@ -202,8 +203,9 @@ exports.addCourse = async (req, res) => {
 
     res.redirect(`/dashBoard/${userId}`);
   } catch (error) {
-    console.error("Error while saving course:", error);
-    res.status(500).send("Error while adding course.");
+    res.redirect(`/dashBoard/${userId}/course/add?error=${error}`)
+    // console.error('erros', error);
+    // res.status(500).send(error.message);
   }
 };
 
@@ -299,6 +301,7 @@ exports.deleteCourse = async (req, res) => {
 };
 
 exports.editCoursePage = async (req, res) => {
+  const { error } = req.query
   const { userId, courseId } = req.params;
 
   try {
@@ -307,7 +310,7 @@ exports.editCoursePage = async (req, res) => {
       return res.status(404).send("Course not found");
     }
 
-    res.render("editCourse", { course, userId });
+    res.render("editCourse", { course, userId, error });
   } catch (error) {
     console.error(error);
     res.status(500).send("Error retrieving course data for editing.");
@@ -315,7 +318,7 @@ exports.editCoursePage = async (req, res) => {
 };
 
 exports.editCourse = async (req, res) => {
-  const { courseId } = req.params;
+  const { userId, courseId } = req.params;
   const { name, description, duration, videoUrl, author } = req.body;
 
   try {
@@ -334,8 +337,9 @@ exports.editCourse = async (req, res) => {
 
     res.redirect(`/dashBoard/${req.params.userId}/course/all`);
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Error updating course");
+    // console.error(error);
+    // res.status(500).send("Error updating course");
+    res.redirect(`/dashBoard/${userId}/course/${courseId}/edit?error=${error}`)
   }
 };
 
@@ -350,7 +354,7 @@ exports.manageCoursesPage = async (req, res) => {
 
     courses.forEach((course) => {
       course.duration = formatDurationToHours(course.duration);
-      course.uploadedAt = formatDateRelative(course.createdAt);
+      course.uploadedAt = Course.formatDateRelative(course.createdAt);
     });
 
     res.render("manageCourses", { courses, userId });

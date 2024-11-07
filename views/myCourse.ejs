@@ -47,7 +47,7 @@
                                 <%= el.Course.author %>
                             </th>
                             <th>
-                                <%= el.Course.duration %>
+                                <%= formatDurationToHours(el.Course.duration) %>
                             </th>
                             <th>
                                     <a href="/dashBoard/<%= userId %>/course/<%= el.Course.id %>/detail">

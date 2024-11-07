@@ -1,5 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
+const moment = require("moment");
 module.exports = (sequelize, DataTypes) => {
   class Course extends Model {
     static associate(models) {
@@ -15,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
     get byAuthor() {
       let addBy = `by ${this.author}`
       return addBy
+    }
+
+    static formatDateRelative(date) {
+      return moment(date).fromNow();
     }
   }
   Course.init(

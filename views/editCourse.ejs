@@ -20,6 +20,18 @@
     <p class="text-xl"><b>Edit Course</b></p>
     <br>
 
+    <% if (error) { %>
+      <div role="alert" class="alert alert-error w-72 mb-6">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>
+          <%= error %>
+        </span>
+      </div>
+      <% } %>
+
     <!-- Form untuk mengedit course -->
     <form
       action="/dashBoard/<%= userId %>/course/<%= course.id %>/edit"
@@ -31,7 +43,6 @@
         id="name"
         name="name"
         value="<%= course.name %>"
-        required
         class="input input-bordered input-sm w-full max-w-xs"
       />
       <br /><br />
@@ -39,8 +50,7 @@
       <label for="description">Description:</label>
       <textarea 
         id="description" 
-        name="description" 
-        required 
+        name="description"  
         class="textarea textarea-bordered textarea-md w-full max-w-xs"
       >
         <%= course.description %>
@@ -53,7 +63,6 @@
         id="duration"
         name="duration"
         value="<%= course.duration %>"
-        required
         class="input input-bordered input-sm w-full max-w-xs"
       />
       <br /><br />
@@ -64,7 +73,6 @@
         id="videoUrl"
         name="videoUrl"
         value="<%= course.videoUrl %>"
-        required
         class="input input-bordered input-sm w-full max-w-xs"
       />
       <br /><br />
@@ -75,7 +83,6 @@
         id="author"
         name="author"
         value="<%= course.author %>"
-        required
         class="input input-bordered input-sm w-full max-w-xs"
       />
       <br /><br />
