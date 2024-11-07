@@ -8,7 +8,6 @@ const {
   addCourse,
   addCoursePage,
   editCoursePage,
-  manageCourses,
   deleteCourse,
   editCourse,
   manageCoursesPage,
@@ -38,58 +37,46 @@ router.get("/dashBoard/:userId/course"); // untuk mengakses course yang sudah di
 router.get(
   "/dashBoard/:userId/course/add",
   isAuthenticated,
-  // isTeacher,
+  isTeacher,
   addCoursePage
 ); // untuk mengakses course yang ingin ditambahkan
+
 router.post(
   "/dashBoard/:userId/course/add",
   isAuthenticated,
-  // isTeacher,
+  isTeacher,
   addCourse
 ); // untuk mengirim pilihan course yang sudah ditambahkan
 
-router.get("/dashBoard/:userId/course/:courseId/edit"); // untuk mengakses
-router.post("/dashBoard/:userId/course/:courseId/edit"); // untuk mengakses
+router.get(
+  "/dashBoard/:userId/course/:courseId/edit",
+  isAuthenticated,
+  isTeacher,
+  editCoursePage
+); // untuk mengakses
+
+router.post(
+  "/dashBoard/:userId/course/:courseId/edit",
+  isAuthenticated,
+  isTeacher,
+  editCourse
+); // untuk mengakses
+
 router.get(
   "/dashBoard/:userId/course/:courseId/delete",
   isAuthenticated,
-  // isTeacher,
+  isTeacher,
   deleteCourse
 ); // untuk mengakses
-
-router.post("/login", login);
-router.get("/logout", logout);
-
-router.get("/manageCourses", isAuthenticated, isTeacher, manageCourses);
-
-// Route untuk menghapus course
-router.get(
-  "/manageCourses/delete/:courseId",
-  isAuthenticated,
-  // isTeacher,
-  deleteCourse
-);
-
-// Route untuk halaman edit course
-router.get(
-  "/manageCourses/edit/:courseId",
-  isAuthenticated,
-  // isTeacher,
-  editCoursePage
-);
-
-// Route untuk mengupdate course
-router.post(
-  "/manageCourses/edit/:courseId",
-  isAuthenticated,
-  // isTeacher,
-  editCourse
-);
 
 router.get(
   "/dashBoard/:userId/manageCourses",
   isAuthenticated,
-  // isTeacher,
+  isTeacher,
   manageCoursesPage
 );
+
+router.post("/login", login);
+router.get("/logout", logout);
+
 module.exports = router;

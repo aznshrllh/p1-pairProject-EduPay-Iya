@@ -17,6 +17,7 @@
           <th>Duration (hours)</th>
           <th>Video URL</th>
           <th>Author</th>
+          <th>Uploaded</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -28,6 +29,7 @@
           <td><%= course.duration %></td>
           <td><%= course.videoUrl %></td>
           <td><%= course.author %></td>
+          <td><%= course.uploadedAt %></td>
           <td>
             <a href="/dashBoard/<%= userId %>/course/<%= course.id %>/edit"
               >Edit</a
