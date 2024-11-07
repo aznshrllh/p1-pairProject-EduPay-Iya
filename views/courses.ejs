@@ -43,7 +43,7 @@
             <th><%= index + 1 %>.</th>
             <th><%= el.name %></th>
             <th><%= el.author %></th>
-            <th><%= el.duration %></th>
+            <th><%= el.durationFormatted %></th>
             <th class="flex gap-1">
               <form action="/dashBoard/<%= userId %>/course/<%= el.id %>/learn">
                 <% if (user.UserCourses.find((element) => element.CourseId ==

@@ -18,6 +18,10 @@ exports.courses = async (req, res) => {
   try {
     const courses = await Course.findAll();
 
+    courses.forEach((course) => {
+      course.durationFormatted = formatDurationToHours(course.duration); // Menambahkan field baru dengan duration yang sudah diformat
+    });
+
     const user = await User.findByPk(userId, {
       include: UserCourse,
     });
