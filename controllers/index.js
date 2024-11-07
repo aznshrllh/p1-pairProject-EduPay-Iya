@@ -72,18 +72,18 @@ exports.register = async (req, res) => {
 exports.addCoursePage = (req, res) => {
   const userId = req.params.userId;
 
-  // Pastikan jika userId ada dan cocok dengan user yang sedang login
+  // Validasi user ID sesuai dengan session
   if (req.session.userId !== parseInt(userId)) {
-    return res.redirect("/login"); // Cegah user lain mengakses halaman ini
+    return res.redirect("/login"); // Redirect jika ID tidak sesuai
   }
-
-  res.render("addCourse", { userId }); // Menampilkan form tambah course
+  // res.send("testing");
+  res.render("addCourse", { userId }); // Render halaman addCourse.ejs dan kirimkan userId
 };
 
 exports.addCourse = async (req, res) => {
   const { userId } = req.params;
   const { name, description, duration, videoUrl, author } = req.body;
-
+  console.log(req.body);
   try {
     // Validasi input
     if (!name || !description || !duration || !author) {
@@ -91,7 +91,7 @@ exports.addCourse = async (req, res) => {
     }
 
     // Simpan data course baru ke database
-    await Course.create({
+    const newCourse = await Course.create({
       name,
       description,
       duration,
@@ -99,10 +99,10 @@ exports.addCourse = async (req, res) => {
       author,
     });
 
-    // Redirect kembali ke halaman dashboard user
+    // Jika berhasil disimpan, redirect ke dashboard
     res.redirect(`/dashBoard/${userId}`);
   } catch (error) {
-    console.error(error);
+    console.error("Error while saving course:", error);
     res.status(500).send("Error while adding course.");
   }
 };
@@ -117,7 +117,7 @@ exports.login = async (req, res) => {
       // Jika password cocok, set session user
       req.session.userId = user.id;
       req.session.role = user.role;
-
+      console.log("Session:", req.session);
       // console.log("Session UserId:", req.session.userId);
       res.redirect(`/dashBoard/${user.id}`);
     } else {
@@ -174,42 +174,119 @@ exports.dashboard = async (req, res) => {
   }
 };
 
-exports.editCourse = async (req, res) => {
-  const { userId, courseId } = req.params;
-  const { name, description, duration, videoUrl, author } = req.body;
-
+exports.manageCourses = async (req, res) => {
   try {
-    const course = await Course.findByPk(courseId);
-    if (course) {
-      course.name = name;
-      course.description = description;
-      course.duration = duration;
-      course.videoUrl = videoUrl;
-      course.author = author;
-      await course.save();
-      res.redirect(`/dashBoard/${userId}`);
-    } else {
-      res.status(404).send("Course not found");
-    }
+    // Mengambil semua course dari database
+    const courses = await Course.findAll();
+
+    // Render halaman untuk menampilkan semua course
+    res.render("manageCourses", { courses });
   } catch (error) {
     console.error(error);
-    res.status(500).send(error.message);
+    res.status(500).send("Error retrieving courses");
   }
 };
 
 exports.deleteCourse = async (req, res) => {
-  const { userId, courseId } = req.params;
+  const { courseId } = req.params;
+
+  try {
+    // Hapus course berdasarkan id
+    const course = await Course.findByPk(courseId);
+    if (!course) {
+      return res.status(404).send("Course not found");
+    }
+
+    await course.destroy();
+    res.redirect("/manageCourses"); // Redirect kembali ke halaman manage courses
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error deleting course");
+  }
+};
+
+exports.editCoursePage = async (req, res) => {
+  const { courseId } = req.params;
 
   try {
     const course = await Course.findByPk(courseId);
-    if (course) {
-      await course.destroy();
-      res.redirect(`/dashBoard/${userId}`);
-    } else {
-      res.status(404).send("Course not found");
+    if (!course) {
+      return res.status(404).send("Course not found");
     }
+
+    res.render("editCourse", { course });
   } catch (error) {
     console.error(error);
-    res.status(500).send(error.message);
+    res.status(500).send("Error retrieving course data");
+  }
+};
+
+exports.editCourse = async (req, res) => {
+  const { courseId } = req.params;
+  const { name, description, duration, videoUrl, author } = req.body;
+
+  try {
+    const course = await Course.findByPk(courseId);
+    if (!course) {
+      return res.status(404).send("Course not found");
+    }
+
+    await course.update({
+      name,
+      description,
+      duration,
+      videoUrl,
+      author,
+    });
+
+    res.redirect("/manageCourses"); // Redirect ke halaman manage courses setelah update
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error updating course");
+  }
+};
+
+// exports.manageCoursesPage = async (req, res) => {
+//   const { userId } = req.params; // Ambil userId dari URL parameter
+
+//   try {
+//     // Mengambil kursus yang dimiliki oleh user (teacher)
+//     const courses = await Course.findAll({
+//       include: {
+//         model: User,
+//         where: { id: userId }, // Pastikan hanya kursus milik user yang diambil
+//         through: { attributes: [] }, // Tidak mengambil kolom dari tabel pivot
+//       },
+//     });
+
+//     // Cek apakah kursus ditemukan
+//     if (courses.length === 0) {
+//       return res.render("manageCourses", {
+//         courses: [],
+//         userId,
+//         message: "No courses found",
+//       });
+//     }
+
+//     // Render halaman manageCourses.ejs dan kirimkan data courses
+//     res.render("manageCourses", { courses, userId });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send("Error fetching courses.");
+//   }
+// };
+
+exports.manageCoursesPage = async (req, res) => {
+  const { userId } = req.params; // Ambil userId dari URL parameter
+
+  try {
+    // Mengambil semua kursus
+    const courses = await Course.findAll();
+
+    // Render halaman manageCourses.ejs dan kirimkan data courses dan userId
+    res.render("manageCourses", { courses, userId });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error fetching courses.");
   }
 };
