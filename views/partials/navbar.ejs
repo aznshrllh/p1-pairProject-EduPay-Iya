@@ -1,7 +1,8 @@
 <nav>
+  <% if (!userId) { %>
+  <!-- Jika user belum login -->
   <button onclick="location.href='/home'">Home</button>
-
-  <% if (userId) { %>
+  <% } %> <% if (userId) { %>
   <!-- Jika user sudah login -->
   <button onclick="location.href='/dashBoard/<%= userId %>'">Dashboard</button>
   <button onclick="location.href='/logout'">Logout</button>

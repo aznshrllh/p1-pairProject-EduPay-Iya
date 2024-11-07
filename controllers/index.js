@@ -47,7 +47,7 @@ exports.register = async (req, res) => {
       });
 
       // Redirect ke halaman dashboard setelah registrasi sukses
-      res.redirect(`/dashBoard/${user.id}`);
+      res.redirect(`/home`);
     } catch (error) {
       console.error(error);
       res
