@@ -9,7 +9,10 @@
     <h1>Edit Course</h1>
 
     <!-- Form untuk mengedit course -->
-    <form action="/manageCourses/edit/<%= course.id %>" method="POST">
+    <form
+      action="/dashBoard/<%= userId %>/course/<%= course.id %>/edit"
+      method="POST"
+    >
       <label for="name">Course Name:</label>
       <input
         type="text"
