@@ -1,0 +1,16 @@
+[
+    {
+        "UserId": 1,
+        "name": "Ahmad Zaki",
+        "age": 18,
+        "role": "Student",
+        "gender": "male"
+    },
+    {
+        "UserId": 2,
+        "name": "Tasya Nadia",
+        "age": 20,
+        "role": "Teacher",
+        "gender": "female"
+    }
+]

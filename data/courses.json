@@ -1,0 +1,17 @@
+[
+    {
+        "name": "JavaScript tutorial for beginners",
+        "description": "JavaScript tutorial for beginners",
+        "author": "Bro Code",
+        "duration": 722,
+        "videoUrl": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/Ihy0QziLDf0?si=ma_3-RI8Au8ooK3k\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>"
+    },
+    {
+        "name": "HTML in 5 minutes",
+        "description": "HTML in 5 minutes",
+        "author": "Aaron Jack",
+        "duration": 311,
+        "videoUrl": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/salY_Sm6mv4?si=BNp2N9jaNRakfDGI\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>"
+    }
+    
+]
