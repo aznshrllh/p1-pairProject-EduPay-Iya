@@ -21,51 +21,21 @@
   <body>
     <%- include('partials/navbar2') %>
     <!-- Navbar yang dinamis -->
-
-    <h1>Welcome, <%= name %>!</h1>
-    <p>Role: <%= role %></p>
-    <p>Age: <%= age %></p>
-
-    <h2>Your Courses</h2>
-    <% if (role === 'teacher') { %>
-    <button onclick="location.href='/dashBoard/<%= userId %>/manageCourses'">
-      Manage Courses
-    </button>
-    <% } %> <% if (courses.length > 0) { %>
-    <ul>
-      <% courses.forEach(course => { %>
-      <li>
-        <%= course.name %> -
-        <button
-          onclick="location.href='/dashBoard/<%= userId %>/course/<%= course.id %>'"
-        >
-          View Course
-        </button>
-        <!-- <a href="/dashBoard/<%= userId %>/course/<%= course.id %>"
-          >View Course</a
-        > -->
-        <% if (role === 'teacher') { %>
-        <!-- Jika user adalah teacher -->
-        <button
-          onclick="location.href='/dashBoard/<%= userId %>/course/<%= course.id %>/edit'"
-        >
-          Edit
-        </button>
-        <button
-          onclick="location.href='/dashBoard/<%= userId %>/course/<%= course.id %>/delete'"
-        >
-          Delete
-        </button>
-        <!-- <a href="/dashBoard/<%= userId %>/course/<%= course.id %>/edit">Edit</a>
-        <a href="/dashBoard/<%= userId %>/course/<%= course.id %>/delete"
-          >Delete</a
-        > -->
-        <% } %>
-      </li>
-      <% }) %>
-    </ul>
-    <% } else { %>
-    <p>You have no courses yet.</p>
-    <% } %>
+    <div class="hero">
+      <div class="hero-content flex-col lg:flex-row">
+        <!-- <img src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
+          class="max-w-sm rounded-lg shadow-2xl" /> -->
+        <div>
+          <h1 class="text-5xl font-bold">Welcome, <%= name %>!</h1>
+          <br>
+          <p>Role: <%= role %></p>
+          <p>Age: <%= age %></p>
+          <div class="my-6 flex gap-2">
+            <a href="/dashBoard/<%= userId %>/course/all"><button class="btn btn-primary">See All Courses</button></a>
+            <a href="/dashBoard/<%= userId %>/course"><button class="btn btn-accent">See My Courses</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
