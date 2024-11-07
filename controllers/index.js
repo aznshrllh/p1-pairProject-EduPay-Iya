@@ -69,16 +69,41 @@ exports.register = async (req, res) => {
   }
 };
 
+exports.addCoursePage = (req, res) => {
+  const userId = req.params.userId;
+
+  // Pastikan jika userId ada dan cocok dengan user yang sedang login
+  if (req.session.userId !== parseInt(userId)) {
+    return res.redirect("/login"); // Cegah user lain mengakses halaman ini
+  }
+
+  res.render("addCourse", { userId }); // Menampilkan form tambah course
+};
+
 exports.addCourse = async (req, res) => {
   const { userId } = req.params;
   const { name, description, duration, videoUrl, author } = req.body;
 
   try {
-    await Course.create({ name, description, duration, videoUrl, author });
+    // Validasi input
+    if (!name || !description || !duration || !author) {
+      return res.status(400).send("All fields are required.");
+    }
+
+    // Simpan data course baru ke database
+    await Course.create({
+      name,
+      description,
+      duration,
+      videoUrl,
+      author,
+    });
+
+    // Redirect kembali ke halaman dashboard user
     res.redirect(`/dashBoard/${userId}`);
   } catch (error) {
     console.error(error);
-    res.status(500).send(error.message);
+    res.status(500).send("Error while adding course.");
   }
 };
 
@@ -94,7 +119,7 @@ exports.login = async (req, res) => {
       req.session.role = user.role;
 
       // console.log("Session UserId:", req.session.userId);
-      res.redirect(`/home`);
+      res.redirect(`/dashBoard/${user.id}`);
     } else {
       res.render("home", { message: "Invalid email or password." });
     }

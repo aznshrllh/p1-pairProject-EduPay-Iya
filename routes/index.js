@@ -5,8 +5,10 @@ const {
   login,
   logout,
   dashboard,
+  addCourse,
+  addCoursePage,
 } = require("../controllers");
-const isAuthenticated = require("../middlewares/isAuthenticated");
+const { isAuthenticated, isTeacher } = require("../middlewares/authMiddleware");
 const router = require("express").Router();
 
 router.get("/", (req, res) => {
@@ -28,8 +30,18 @@ router.get("/dashBoard/:userId", isAuthenticated, dashboard); // untuk menampilk
 router.get("/dashBoard/:userId/course"); // untuk mengakses course yang sudah dipilih atau mematikan (semacam fitur on dan off boolean)
 
 // ! hanya bisa diakses oleh teacher
-router.get("/dashBoard/:userId/course/add"); // untuk mengakses course yang ingin ditambahkan
-router.post("/dashBoard/:userId/course/add"); // untuk mengirim pilihan course yang sudah ditambahkan
+router.get(
+  "/dashBoard/:userId/course/add",
+  isAuthenticated,
+  isTeacher,
+  addCoursePage
+); // untuk mengakses course yang ingin ditambahkan
+router.post(
+  "/dashBoard/:userId/course/add",
+  isAuthenticated,
+  isTeacher,
+  addCourse
+); // untuk mengirim pilihan course yang sudah ditambahkan
 router.get("/dashBoard/:userId/course/:courseId/edit"); // untuk mengakses
 router.post("/dashBoard/:userId/course/:courseId/edit"); // untuk mengakses
 router.get("/dashBoard/:userId/course/:courseId/delete"); // untuk mengakses
