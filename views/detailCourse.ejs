@@ -1,48 +1,51 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="cupcake">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Detail Course</title>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Lexend:wght@100..900&family=Sixtyfour+Convergence&display=swap"
-        rel="stylesheet">
+      href="https://cdn.jsdelivr.net/npm/daisyui@4.12.14/dist/full.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Lexend:wght@100..900&family=Sixtyfour+Convergence&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/css/main.css" />
-</head>
+  </head>
 
-<body>
+  <body>
     <%- include('partials/navbar2') %>
 
-        <div class="overflow-x-auto px-20 flex flex-col items-center">
+    <div class="overflow-x-auto px-20 flex flex-col items-center">
+      <%- course.videoUrl %>
 
-            <%- course.videoUrl %>
+      <br />
 
-            <br>
+      <h1><b><%= course.name %></b></h1>
+      <p class="text-xs">by <%= course.author %></p>
 
-            <h1><b><%= course.name %></b></h1>
-            <p class="text-xs">by <%= course.author %></p>
+      <br />
 
-            <br>
+      <p class="text-xs max-w-screen-sm"><%= course.description %></p>
 
-            <p class="text-xs max-w-screen-sm"><%= course.description %></p>
+      <br />
 
-            <br>
+      <div class="w-full flex justify-end">
+        <form action="/dashBoard/<%= userId %>/course/<%= course.id %>/finish">
+          <button class="btn btn-secondary btn-sm" type="submit">
+            Finish Learning
+          </button>
+        </form>
+      </div>
 
-            <div class="w-full flex justify-end">
-                <form action="/dashBoard/<%= userId %>/course/<%= course.id %>/finish">
-                    <button class="btn btn-secondary btn-sm" type="submit">Finish Learning</button>
-                </form>
-            </div>
-
-            <br>
-            <br>
-
-        </div>
-</body>
-
+      <br />
+      <br />
+    </div>
+  </body>
 </html>

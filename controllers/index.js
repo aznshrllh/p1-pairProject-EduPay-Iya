@@ -13,15 +13,15 @@ exports.home = async (req, res) => {
 };
 
 exports.courses = async (req, res) => {
-  const {userId} = req.params
+  const { userId } = req.params;
 
   try {
     const courses = await Course.findAll();
 
     const user = await User.findByPk(userId, {
-      include: UserCourse
-    })
-    
+      include: UserCourse,
+    });
+
     res.render("courses", { courses, userId, user });
   } catch (error) {
     console.log(error);
@@ -30,21 +30,21 @@ exports.courses = async (req, res) => {
 };
 
 exports.myCourse = async (req, res) => {
-  const {userId} = req.params
+  const { userId } = req.params;
 
   try {
     const courses = await UserCourse.findAll({
-        include: [
-          {
-            model: User,
-            where: {
-              id: userId
-            }
+      include: [
+        {
+          model: User,
+          where: {
+            id: userId,
           },
-          {
-            model: Course
-          }
-        ]
+        },
+        {
+          model: Course,
+        },
+      ],
     });
     res.render("myCourse", { courses, userId });
   } catch (error) {
@@ -54,7 +54,7 @@ exports.myCourse = async (req, res) => {
 };
 
 exports.detailCourse = async (req, res) => {
-  const {userId, courseId} = req.params
+  const { userId, courseId } = req.params;
 
   try {
     const course = await Course.findByPk(courseId);
@@ -65,7 +65,6 @@ exports.detailCourse = async (req, res) => {
   }
 };
 
-
 exports.learnCourse = async (req, res) => {
   const { userId, courseId } = req.params;
 
@@ -74,7 +73,7 @@ exports.learnCourse = async (req, res) => {
     await UserCourse.create({
       UserId: userId,
       CourseId: courseId,
-      statusLearning: false
+      statusLearning: false,
     });
 
     // Redirect kembali ke halaman dashboard user
@@ -92,12 +91,12 @@ exports.finishCourse = async (req, res) => {
     // Simpan data course baru ke database
     await UserCourse.update(
       {
-        statusLearning: true
+        statusLearning: true,
       },
       {
         where: {
-          CourseId: courseId
-        }
+          CourseId: courseId,
+        },
       }
     );
 
