@@ -7,6 +7,11 @@ const {
   dashboard,
   addCourse,
   addCoursePage,
+  editCoursePage,
+  manageCourses,
+  deleteCourse,
+  editCourse,
+  manageCoursesPage,
 } = require("../controllers");
 const { isAuthenticated, isTeacher } = require("../middlewares/authMiddleware");
 const router = require("express").Router();
@@ -33,20 +38,58 @@ router.get("/dashBoard/:userId/course"); // untuk mengakses course yang sudah di
 router.get(
   "/dashBoard/:userId/course/add",
   isAuthenticated,
-  isTeacher,
+  // isTeacher,
   addCoursePage
 ); // untuk mengakses course yang ingin ditambahkan
 router.post(
   "/dashBoard/:userId/course/add",
   isAuthenticated,
-  isTeacher,
+  // isTeacher,
   addCourse
 ); // untuk mengirim pilihan course yang sudah ditambahkan
+
 router.get("/dashBoard/:userId/course/:courseId/edit"); // untuk mengakses
 router.post("/dashBoard/:userId/course/:courseId/edit"); // untuk mengakses
-router.get("/dashBoard/:userId/course/:courseId/delete"); // untuk mengakses
+router.get(
+  "/dashBoard/:userId/course/:courseId/delete",
+  isAuthenticated,
+  // isTeacher,
+  deleteCourse
+); // untuk mengakses
 
 router.post("/login", login);
 router.get("/logout", logout);
 
+router.get("/manageCourses", isAuthenticated, isTeacher, manageCourses);
+
+// Route untuk menghapus course
+router.get(
+  "/manageCourses/delete/:courseId",
+  isAuthenticated,
+  // isTeacher,
+  deleteCourse
+);
+
+// Route untuk halaman edit course
+router.get(
+  "/manageCourses/edit/:courseId",
+  isAuthenticated,
+  // isTeacher,
+  editCoursePage
+);
+
+// Route untuk mengupdate course
+router.post(
+  "/manageCourses/edit/:courseId",
+  isAuthenticated,
+  // isTeacher,
+  editCourse
+);
+
+router.get(
+  "/dashBoard/:userId/manageCourses",
+  isAuthenticated,
+  // isTeacher,
+  manageCoursesPage
+);
 module.exports = router;
