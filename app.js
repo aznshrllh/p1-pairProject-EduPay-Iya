@@ -3,18 +3,18 @@ const app = express();
 const port = 3000;
 const session = require("express-session");
 
-app.set("view engine", "ejs");
-app.use(express.static("public"));
-app.use(express.urlencoded({ extended: true }));
-app.use(require("./routes"));
 app.use(
   session({
-    secret: "123", // Gantilah dengan kunci yang aman
+    secret: "123",
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }, // Gunakan secure: true jika Anda menggunakan HTTPS
+    cookie: { secure: false },
   })
 );
+app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
+app.use(require("./routes"));
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

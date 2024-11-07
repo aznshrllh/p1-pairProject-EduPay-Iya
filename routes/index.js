@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
 router.get("/home", home); // login dan register, jika sudah login masuk ke /dashboard/:userId, jika tidak ke register
 
 router.get("/register", register); // untuk melakukan register/addStudent
-router.post("/regiter", register); // untuk mengambil data dari register
+router.post("/register", register); // untuk mengambil data dari register
 
 // ! bisa di akses secara umum (teacher & student)
 router.get("/dashBoard/courses", courses)
