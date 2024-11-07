@@ -1,4 +1,8 @@
-const { home } = require("../controllers");
+const { 
+  home,
+  courses
+
+} = require("../controllers");
 
 const router = require("express").Router();
 
@@ -11,6 +15,7 @@ router.get("/register"); // untuk melakukan register/addStudent
 router.post("/regiter"); // untuk mengambil data dari register
 
 // ! bisa di akses secara umum (teacher & student)
+router.get("/dashBoard/course", courses)
 router.get("/dashBoard/:userId"); // untuk menampilkan dashBoard, menampilkan dashboard dengan nama, profile, dan tombol course yang nanti mengarah ke /course/add
 router.get("/dashBoard/:userId/course"); // untuk mengakses course yang sudah dipilih atau mematikan (semacam fitur on dan off boolean)
 
