@@ -1,7 +1,7 @@
 # p1-pairProject-EduPay-Iya
 Untuk menyelesaikan phase 1 Pair Project EduPay-Iya
 
-npm yang perlu diinstall
+package npm yang perlu diinstall
 
     npm install express ejs pg sequelize bcryptjs express-session moment 
     npm install --save-dev sequelize-cli
