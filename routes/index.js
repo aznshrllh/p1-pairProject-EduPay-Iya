@@ -73,9 +73,9 @@ router.get(
   deleteCourse
 ); // untuk mengakses
 
-router.get("/dashBoard/:userId/course/:courseId/detail", detailCourse); 
-router.get("/dashBoard/:userId/course/:courseId/learn", learnCourse); 
-router.get("/dashBoard/:userId/course/:courseId/finish", finishCourse); 
+router.get("/dashBoard/:userId/course/:courseId/detail", detailCourse);
+router.get("/dashBoard/:userId/course/:courseId/learn", learnCourse);
+router.get("/dashBoard/:userId/course/:courseId/finish", finishCourse);
 
 router.get(
   "/dashBoard/:userId/manageCourses",
@@ -83,8 +83,6 @@ router.get(
   isTeacher,
   manageCoursesPage
 );
-
-
 
 router.post("/login", login);
 router.get("/logout", logout);
