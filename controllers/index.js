@@ -1,7 +1,7 @@
 // const { formatDateRelative } = require("../helpers/formatDate");
 const { formatDurationToHours } = require("../helpers/formatDuration");
 const { Course, ProfileUser, User, UserCourse } = require("../models");
-const { Op } = require("sequelize")
+const { Op } = require("sequelize");
 const bcrypt = require("bcryptjs");
 
 exports.home = async (req, res) => {
@@ -18,7 +18,8 @@ exports.courses = async (req, res) => {
   const { keyword } = req.query;
 
   const options = {
-      where: {},
+    where: {},
+    order: [["name", "ASC"]],
   };
 
   if (keyword) {
@@ -31,7 +32,7 @@ exports.courses = async (req, res) => {
     const courses = await Course.findAll(options);
 
     courses.forEach((course) => {
-      course.durationFormatted = formatDurationToHours(course.duration); // Menambahkan field baru dengan duration yang sudah diformat
+      course.durationFormatted = formatDurationToHours(course.duration);
     });
 
     const user = await User.findByPk(userId, {
@@ -94,14 +95,12 @@ exports.learnCourse = async (req, res) => {
   const { userId, courseId } = req.params;
 
   try {
-    // Simpan data course baru ke database
     await UserCourse.create({
       UserId: userId,
       CourseId: courseId,
       statusLearning: false,
     });
 
-    // Redirect kembali ke halaman dashboard user
     res.redirect(`/dashBoard/${userId}/course/all`);
   } catch (error) {
     console.error(error);
@@ -113,7 +112,6 @@ exports.finishCourse = async (req, res) => {
   const { userId, courseId } = req.params;
 
   try {
-    // Simpan data course baru ke database
     await UserCourse.update(
       {
         statusLearning: true,
@@ -125,7 +123,6 @@ exports.finishCourse = async (req, res) => {
       }
     );
 
-    // Redirect kembali ke halaman dashboard user
     res.redirect(`/dashBoard/${userId}/course`);
   } catch (error) {
     console.error(error);
@@ -176,7 +173,7 @@ exports.register = async (req, res) => {
 
 exports.addCoursePage = (req, res) => {
   const userId = req.params.userId;
-  const {error} = req.query
+  const { error } = req.query;
 
   if (req.session.userId !== parseInt(userId)) {
     return res.redirect("/login");
@@ -203,7 +200,7 @@ exports.addCourse = async (req, res) => {
 
     res.redirect(`/dashBoard/${userId}`);
   } catch (error) {
-    res.redirect(`/dashBoard/${userId}/course/add?error=${error}`)
+    res.redirect(`/dashBoard/${userId}/course/add?error=${error}`);
     // console.error('erros', error);
     // res.status(500).send(error.message);
   }
@@ -220,7 +217,6 @@ exports.login = async (req, res) => {
     if (user && (await bcrypt.compare(password, user.password))) {
       req.session.userId = user.id;
       req.session.role = user.ProfileUser.role;
-      // console.log("Session after login:", req.session);
       res.redirect(`/dashBoard/${user.id}`);
     } else {
       res.render("home", { message: "Invalid email or password." });
@@ -301,7 +297,7 @@ exports.deleteCourse = async (req, res) => {
 };
 
 exports.editCoursePage = async (req, res) => {
-  const { error } = req.query
+  const { error } = req.query;
   const { userId, courseId } = req.params;
 
   try {
@@ -339,7 +335,7 @@ exports.editCourse = async (req, res) => {
   } catch (error) {
     // console.error(error);
     // res.status(500).send("Error updating course");
-    res.redirect(`/dashBoard/${userId}/course/${courseId}/edit?error=${error}`)
+    res.redirect(`/dashBoard/${userId}/course/${courseId}/edit?error=${error}`);
   }
 };
 
