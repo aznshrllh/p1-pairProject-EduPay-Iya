@@ -201,7 +201,7 @@ exports.addCourse = async (req, res) => {
       author,
     });
 
-    res.redirect(`/dashBoard/${userId}`);
+    res.redirect(`/dashBoard/${userId}/course/all`);
   } catch (error) {
     res.redirect(`/dashBoard/${userId}/course/add?error=${error}`)
     // console.error('erros', error);
